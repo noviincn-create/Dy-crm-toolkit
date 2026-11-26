@@ -22,7 +22,7 @@ ok(routeFromLocation({ search: '?appid=1&novinvn=report', hash: '' }) === 'repor
 ok(routeFromLocation({ search: '', hash: '#novinvn=report' }) === 'report', '#novinvn=report');
 ok(routeFromLocation({ search: '?novinvn=novinvn%3A%2F%2Freport', hash: '' }) === 'report', 'full scheme as value');
 ok(routeFromLocation({ search: '?novinvn=../x', hash: '' }) === null && routeFromLocation({ search: '?a=1', hash: '' }) === null, 'junk route rejected');
-ok(routeUrl('https://a.crm.systan.com/', 'report') === 'https://a.crm.systan.com/main.aspx?novinvn=report', 'routeUrl');
+ok(routeUrl('https://a.crm.systan.com/', 'report') === 'https://a.crm.systan.com/#novinvn=report', 'routeUrl');
 ok(withoutRoute('https://a/main.aspx?appid=1&novinvn=report#x') === 'https://a/main.aspx?appid=1#x', 'param removed, rest kept');
 
 // ───────────── dates (pure) ─────────────
@@ -134,6 +134,10 @@ function boot(url: string, opts: { fail?: boolean } = {}) {
   await sleep(150);
   ok(/no privilege/.test(f.w.document.getElementById('rp-error').textContent), 'API errors are shown in the dashboard');
   ok(f.w.document.getElementById('rp-loading').style.display === 'none', 'loading overlay hidden after an error');
+  // the form the OS handler / omnibox open: CRM root + #fragment
+  const hsh = boot('https://novincn.crm.systan.com/#novinvn=report');
+  await sleep(150);
+  ok(!!hsh.w.document.getElementById('dy-report') && !/novinvn/.test(hsh.w.location.href), '#novinvn=report opens the dashboard and is removed from the address');
   // unknown routes do nothing
   const u = boot('https://novincn.crm.systan.com/main.aspx?novinvn=nothing');
   await sleep(50);

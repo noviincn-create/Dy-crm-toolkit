@@ -1,7 +1,7 @@
 <#
   Registers the novinvn:// URL scheme for the current Windows user (no admin rights needed).
   Typing / clicking  novinvn://report  anywhere (Chrome address bar, Win+R, Telegram, a document, ...) opens Chrome on the CRM
-  with ?novinvn=report; the DY CRM Toolkit extension then shows the sales dashboard.
+  with #novinvn=report; the DY CRM Toolkit extension then shows the sales dashboard.
 
   Usage:   powershell -ExecutionPolicy Bypass -File install-novinvn.ps1 [-CrmUrl https://novincn.crm.systan.com]
   Remove:  powershell -ExecutionPolicy Bypass -File install-novinvn.ps1 -Uninstall
@@ -49,7 +49,7 @@ Next
 
 Select Case route
   Case "report"
-    target = CRM & "/main.aspx?novinvn=report"
+    target = CRM & "/#novinvn=report"
   Case Else
     MsgBox "Unknown novinvn address: " & route, 48, "Novin"
     WScript.Quit 2
@@ -82,5 +82,5 @@ New-ItemProperty -Path $key -Name "URL Protocol" -Value "" -PropertyType String 
 New-Item -Path "$key\shell\open\command" -Force | Out-Null
 Set-ItemProperty -Path "$key\shell\open\command" -Name "(default)" -Value ("wscript.exe `"{0}`" `"%1`"" -f $vbs)
 
-Write-Host "Done. novinvn://report now opens $CrmUrl/main.aspx?novinvn=report"
+Write-Host "Done. novinvn://report now opens $CrmUrl/#novinvn=report"
 Write-Host "Chrome asks once whether to allow the link: tick 'Always allow'."

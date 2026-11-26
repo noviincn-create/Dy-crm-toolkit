@@ -5,7 +5,7 @@
 **جعبه‌ابزار فروش برای Dynamics 365 on‑prem 9.1**
 فاکتور فارسی · شماره‌گذاری فرصت · احراز هویت زحل · بستن سریع فرصت · جلسه‌ی سریع · داشبورد فروش
 
-![Version](https://img.shields.io/badge/version-1.14.0-1768a5?style=flat-square)
+![Version](https://img.shields.io/badge/version-1.14.1-1768a5?style=flat-square)
 ![Manifest](https://img.shields.io/badge/Chrome-MV3-34a853?style=flat-square&logo=googlechrome&logoColor=white)
 ![Dynamics](https://img.shields.io/badge/Dynamics%20365-CE%209.1-002050?style=flat-square)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6?style=flat-square&logo=typescript&logoColor=white)
@@ -41,7 +41,7 @@
 | نوار آدرس Chrome | `nv` ← <kbd>Tab</kbd> ← `report` ← <kbd>Enter</kbd> |
 | دکمه‌ی شناور | «گزارش فروش» در لیست فرصت‌ها |
 | لینک داخل CRM | `<a href="novinvn://report">` |
-| آدرس مستقیم | `https://<crm>/main.aspx?novinvn=report` |
+| آدرس مستقیم | `https://<crm>/#novinvn=report` |
 
 Chrome اجازه نمی‌دهد افزونه اسکیم `novinvn://` را ثبت کند؛ برای همین فایل `tools/protocol/install-novinvn.bat` اسکیم را در ویندوز ثبت می‌کند و آدرس را به لینک CRM ترجمه می‌کند (بدون نیاز به Admin).
 جزئیات: [`docs/NOVINVN.md`](docs/NOVINVN.md)

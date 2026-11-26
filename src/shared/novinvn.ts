@@ -1,6 +1,6 @@
 /**
  * The novinvn:// scheme. Chrome cannot register this scheme for an extension, so the OS handler (tools/protocol) turns
- * novinvn://<route> into a CRM URL carrying `?novinvn=<route>`; the page script and the omnibox then act on the route.
+ * novinvn://<route> into a CRM URL carrying `#novinvn=<route>`; the page script and the omnibox then act on the route.
  */
 export const NOVINVN_PARAM = "novinvn";
 
@@ -24,9 +24,12 @@ export function routeFromLocation(loc: { search: string; hash: string }): string
   return null;
 }
 
-/** The CRM URL that opens a route (used by the omnibox and the OS handler). */
+/**
+ * The CRM URL that opens a route (used by the omnibox and the OS handler). The route travels in the #fragment, which the
+ * browser never sends to the server: a query parameter on main.aspx made Dynamics answer with its error page.
+ */
 export const routeUrl = (crmBase: string, route: string): string =>
-  `${crmBase.replace(/\/+$/, "")}/main.aspx?${NOVINVN_PARAM}=${encodeURIComponent(route)}`;
+  `${crmBase.replace(/\/+$/, "")}/#${NOVINVN_PARAM}=${encodeURIComponent(route)}`;
 
 /** The same URL without the route parameter (so a refresh does not reopen it). */
 export function withoutRoute(href: string): string {

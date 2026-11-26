@@ -1,6 +1,6 @@
 /**
  * Omnibox entry: type `nv`, press Tab / Space, then Enter (or `nv report`). Focuses a CRM tab and opens the dashboard
- * there; without a CRM tab a new one is opened on the CRM address with `?novinvn=report`.
+ * there; without a CRM tab a new one is opened on the CRM address with `#novinvn=report`.
  */
 import { parseNovinvn, routeUrl } from "../shared/novinvn";
 import { crmBase } from "./quick";

@@ -1,7 +1,7 @@
 /**
  * Sales dashboard entry (content script, world MAIN, document_start, top frame of CRM pages).
  * Opens the dashboard when
- *  - the page URL carries `?novinvn=report` (what novinvn://report becomes; see tools/protocol),
+ *  - the page URL carries `#novinvn=report` (what novinvn://report becomes; see tools/protocol),
  *  - the extension asks for it (omnibox "nv report", through report-bridge),
  *  - a link to novinvn://report is clicked inside the page, or the floating button is pressed.
  */

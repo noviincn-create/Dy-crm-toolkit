@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "DY CRM Toolkit",
-  "version": "1.14.0",
+  "version": "1.14.1",
   "description": "Dynamics 365 on-prem 9.1: Persian sales invoice on print (opportunity form), monthly opportunity number, Zohal KYC, close-as-won, product tools a session side panel, quick sessions from any tab (double-tap Shift / Ctrl) a print footer and the sales dashboard (novinvn://report, omnibox \"nv\").",
   "permissions": [
     "storage",

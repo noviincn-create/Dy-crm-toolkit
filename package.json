@@ -1,6 +1,6 @@
 {
   "name": "dy-crm-toolkit",
-  "version": "1.14.0",
+  "version": "1.14.1",
   "private": true,
   "description": "Dynamics 365 on-prem 9.1 Chrome (MV3) extension: Persian invoice print, monthly opportunity number, Zohal KYC, close-as-won, product tools, session panel.",
   "type": "module",

@@ -15,6 +15,7 @@ const entries = {
   "content/invoice-bridge": "src/invoice/bridge.ts",
   "content/sm-bridge": "src/session-manager/bridge.ts",
   "content/report": "src/report/index.ts",
+  "report/page": "src/report/page.ts",
   "content/report-bridge": "src/report/bridge.ts",
   "options/options": "src/options/options.ts",
 };

@@ -10,9 +10,8 @@ import { activeMsAt } from "../session-manager/clock";
 import { OPPORTUNITY_SESSION_TYPE } from "../session-manager/registry";
 import { getManager } from "../session-manager/service";
 import { isTerminal, SmError } from "../session-manager/types";
-import {
-  cleanCrmUrl, DEFAULT_CRM_URL, mergeQuickConfig, QUICK_STORAGE_KEY, QUICK_URL_KEY, type QuickConfig,
-} from "../shared/config";
+import { cleanCrmUrl, QUICK_URL_KEY } from "../shared/config";
+import { crmBase, loadQuickConfig } from "../shared/crm-url";
 import { api, apiAll, setApiTransport, type ODataRow } from "../shared/odata";
 import { errorMessage } from "../shared/text";
 import {
@@ -21,18 +20,6 @@ import {
 
 const PRODUCTS_KEY = "quickProducts";
 const PRODUCTS_TTL = 10 * 60_000;
-
-export const loadQuickConfig = async (): Promise<QuickConfig> => {
-  const r = await chrome.storage.local.get({ [QUICK_STORAGE_KEY]: {} });
-  return mergeQuickConfig(r[QUICK_STORAGE_KEY] as Partial<QuickConfig>);
-};
-
-/** The CRM address: the settings value, else the address learned from a CRM tab, else the default. */
-export async function crmBase(): Promise<string> {
-  const cfg = await loadQuickConfig();
-  const learned = (await chrome.storage.local.get({ [QUICK_URL_KEY]: "" }))[QUICK_URL_KEY];
-  return cfg.crmUrl || cleanCrmUrl(learned) || DEFAULT_CRM_URL;
-}
 
 /** Called once at worker start: the shared Web API client now talks to the CRM address with the CRM cookies. */
 export function installQuickTransport(): void {

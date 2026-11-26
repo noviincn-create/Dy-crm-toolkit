@@ -7,6 +7,7 @@ import { DIMS } from "./dims";
 import { compact, format, money, num } from "./format";
 import { exportCSV, exportExcel } from "./export";
 import { deltaPct, groupRecords, totalsOf } from "./data";
+import { env } from "./env";
 import { pageSize, persist, state } from "./state";
 import { REPORT_CSS } from "./styles";
 import { reportHtml } from "./template";
@@ -218,7 +219,7 @@ function openDrill(group: Group): void {
   const link = (oppId: string, oppName: string): string => {
     const name = esc(oppName || "فرصت بدون عنوان");
     if (!GUID_RE.test(oppId)) return name;
-    const href = `${location.origin}/main.aspx?etn=opportunity&pagetype=entityrecord&id=${encodeURIComponent(oppId)}`;
+    const href = `${env.crmUrl || location.origin}/main.aspx?etn=opportunity&pagetype=entityrecord&id=${encodeURIComponent(oppId)}`;
     return `<a href="${href}" target="_blank" rel="noopener">${name}</a>`;
   };
 
@@ -312,6 +313,7 @@ export function closeReport(): void {
   document.removeEventListener("keydown", onKeyDown);
   document.getElementById(REPORT_ID)?.remove();
   document.getElementById(REPORT_CSS_ID)?.remove();
+  env.onClose?.();
 }
 
 function applyFilters(): void {

@@ -22,7 +22,7 @@
     "test:sm-ui": "tsx tests/session-manager-ui.test.ts dist/content/close.js dist/content/sm-bridge.js",
     "test:quick": "tsx tests/quick.test.ts dist/content/quick.js",
     "test:quick-bg": "tsx tests/quick-bg.test.ts",
-    "test:report": "tsx tests/report.test.ts dist/content/report.js dist/content/report-bridge.js"
+    "test:report": "tsx tests/report.test.ts dist/content/report.js dist/content/report-bridge.js && tsx tests/report-page.test.ts dist/report/page.js"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.280",

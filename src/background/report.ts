@@ -3,7 +3,7 @@
  * there; without a CRM tab a new one is opened on the CRM address with `#novinvn=report`.
  */
 import { parseNovinvn, routeUrl } from "../shared/novinvn";
-import { crmBase } from "./quick";
+import { crmBase } from "../shared/crm-url";
 
 const CRM_TABS = "https://*.crm.systan.com/*";
 

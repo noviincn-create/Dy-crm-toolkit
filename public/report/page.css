@@ -1,0 +1,10 @@
+/* the page's own font (the CRM-injected font.css does not apply to extension pages) */
+@font-face {
+  font-family: "DY Vazir";
+  src: url("../invoice/Vazirmatn.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+html, body { margin: 0; background: #f2f5fa; }
+@media (prefers-color-scheme: dark) { html.dark-boot, html.dark-boot body { background: #0f1724; } }

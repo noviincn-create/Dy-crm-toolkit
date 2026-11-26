@@ -3,11 +3,12 @@ import { errorMessage } from "../shared/text";
 import { installTransport, normalizeRecord, retrieveAll } from "./data";
 import { format } from "./format";
 import { jtextFromIso, previousRange } from "./dates";
+import { env } from "./env";
 import { state } from "./state";
 import type { Basis } from "./types";
 
 let installed = false;
-export const INSTALL_TRANSPORT_ONCE = (): void => { if (!installed) { installed = true; installTransport(); } };
+export const INSTALL_TRANSPORT_ONCE = (): void => { if (!installed && !env.managed) { installed = true; installTransport(); } };
 
 export interface LoadUi {
   setLoading(show: boolean, title?: string, detail?: string): void;
@@ -62,7 +63,10 @@ export async function loadData(ui: LoadUi): Promise<void> {
     if (!state.records.length) ui.showError("هیچ رکوردی پیدا نشد. بازه زمانی، مبنای تاریخ، دسترسی کاربر و فیلتر Closed Won را بررسی کنید.");
   } catch (e) {
     console.error("DY report:", e);
-    ui.showError(errorMessage(e));
+    // an unreachable CRM / sign-in redirect shows up as a network TypeError
+    ui.showError(e instanceof Error && e.name === "TypeError" && env.crmUrl
+      ? `ارتباط با CRM برقرار نشد. ابتدا در همین Chrome وارد CRM شوید (${env.crmUrl}) و دوباره بروزرسانی کنید.`
+      : errorMessage(e));
     ui.setStatus("خطا در دریافت اطلاعات");
   } finally {
     state.loading = false;

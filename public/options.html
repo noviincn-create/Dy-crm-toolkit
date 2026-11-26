@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>تنظیمات DY CRM Toolkit</title>
+  <style>
+    :root {
+      --bg: #f5f7fb; --card: #ffffff; --tx: #172033; --mu: #68758b; --ln: #e4e9f2;
+      --pr: #5856e9; --pr-h: #4643d3; --on-pr: #fff; --pr-s: #efefff;
+      --ok: #0b9b72; --ok-s: #e8f8f1; --s2: #f7f8fc; --s3: #eef1f7;
+      --shadow: 0 10px 28px rgba(28, 40, 70, .055); --radius: 20px; color-scheme: light;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg:#0d111b; --card:#151b28; --tx:#eef2fa; --mu:#9aa8bd; --ln:#293346;
+        --pr:#8988ff; --pr-h:#a3a1ff; --on-pr:#101126; --pr-s:#252641; --ok:#43d6a2; --ok-s:#18372f;
+        --s2:#192131; --s3:#202a3b; --shadow:0 10px 30px rgba(0,0,0,.18); color-scheme:dark; }
+    }
+    * { box-sizing:border-box; }
+    body { margin:0; background:radial-gradient(ellipse at 5% 0%, rgba(100,102,245,.08), transparent 38%),var(--bg); color:var(--tx);
+      font:14px/1.8 Vazirmatn,"Segoe UI",Tahoma,sans-serif; }
+    .wrap { max-width:960px; margin:0 auto; padding:32px 22px 130px; }
+    header { display:flex; align-items:center; gap:16px; margin-bottom:26px; }
+    .logo { width:58px; height:58px; border-radius:18px; color:#fff; display:grid; place-items:center; font-weight:900; letter-spacing:.5px;
+      background:linear-gradient(145deg,#7775ff,#4f46e5 58%,#302c9c); box-shadow:0 10px 25px rgba(79,70,229,.24); }
+    h1 { margin:0; font-size:23px; font-weight:850; letter-spacing:-.4px; }
+    .ver { color:var(--mu); font-size:12px; margin-top:2px; }
+    nav { display:flex; gap:6px; padding:6px; margin-bottom:22px; background:var(--s3); border:1px solid var(--ln); border-radius:17px; overflow-x:auto; scrollbar-width:thin; }
+    nav button { flex:1 0 auto; border:0; border-radius:12px; padding:11px 15px; background:transparent; color:var(--mu); font:inherit; font-weight:750; cursor:pointer; transition:background .18s,color .18s,transform .18s; white-space:nowrap; }
+    nav button:hover { color:var(--tx); background:color-mix(in srgb,var(--card) 60%,transparent); }
+    nav button[aria-selected="true"] { background:var(--card); color:var(--pr); box-shadow:0 2px 8px rgba(25,35,60,.08); }
+    nav button:focus-visible,.btn:focus-visible,.eye:focus-visible { outline:0; box-shadow:0 0 0 3px color-mix(in srgb,var(--pr) 35%,transparent); }
+    section[hidden],.card[hidden] { display:none; }
+    section[role="tabpanel"] { animation:fade-in .18s ease-out; }
+    @keyframes fade-in { from{opacity:.45;transform:translateY(3px)} to{opacity:1;transform:none} }
+    .card { background:var(--card); border:1px solid var(--ln); border-radius:var(--radius); padding:24px 26px; margin-bottom:18px; box-shadow:var(--shadow); }
+    .card h2 { margin:0 0 4px; font-size:16px; font-weight:850; letter-spacing:-.15px; }
+    .card > p { margin:0 0 20px; color:var(--mu); font-size:12.5px; }
+    label.f { display:block; margin-bottom:18px; }
+    label.f:last-child { margin-bottom:0; }
+    label.f > span { display:block; margin-bottom:7px; font-weight:750; font-size:13px; }
+    small { color:var(--mu); font-weight:400; font-size:11.5px; }
+    select,input[type=text],input[type=password] { width:100%; min-height:46px; padding:10px 14px; border:1px solid var(--ln); border-radius:12px; background:var(--card); color:var(--tx); font:inherit; transition:border-color .16s,box-shadow .16s,background .16s; }
+    select { cursor:pointer; }
+    input[type=text],input[type=password] { direction:ltr; box-shadow:0 1px 2px rgba(16,24,40,.025); }
+    input[readonly] { background:var(--s2); color:var(--mu); }
+    input.rtl { direction:rtl; }
+    select:focus,input:focus { outline:none; border-color:var(--pr); box-shadow:0 0 0 3px color-mix(in srgb,var(--pr) 20%,transparent); }
+    .in { position:relative; }
+    .in input { padding-left:52px; }
+    .eye { position:absolute; left:7px; top:50%; transform:translateY(-50%); width:36px; height:36px; border:0; border-radius:10px; background:transparent; color:var(--mu); cursor:pointer; font-size:16px; }
+    .eye:hover { background:var(--s2); color:var(--tx); }
+    .sw { display:flex; align-items:center; gap:14px; cursor:pointer; padding:7px 0; }
+    .sw input { position:absolute; opacity:0; width:1px; height:1px; }
+    .sw i { width:46px; height:27px; border-radius:20px; background:color-mix(in srgb,var(--mu) 35%,var(--ln)); position:relative; transition:.2s; flex:none; }
+    .sw i::after { content:""; position:absolute; top:3.5px; right:3.5px; width:20px; height:20px; border-radius:50%; background:#fff; box-shadow:0 1px 4px rgba(0,0,0,.2); transition:.2s; }
+    .sw input:checked + i { background:var(--pr); }
+    .sw input:checked + i::after { right:22px; }
+    .sw input:focus-visible + i { box-shadow:0 0 0 3px color-mix(in srgb,var(--pr) 30%,transparent); }
+    .sw b { display:block; font-weight:750; }
+    .bar { position:fixed; inset-inline:0; bottom:0; padding:14px 20px; background:color-mix(in srgb,var(--card) 88%,transparent); backdrop-filter:blur(16px); border-top:1px solid var(--ln); z-index:10; }
+    .bar div { max-width:960px; margin:0 auto; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+    .btn { min-height:44px; padding:0 20px; border-radius:12px; border:1px solid var(--ln); background:var(--card); color:var(--tx); font:inherit; font-weight:750; cursor:pointer; transition:background .16s,transform .16s,border-color .16s; }
+    .btn:hover { background:var(--s3); transform:translateY(-1px); }
+    .btn.pri { background:var(--pr); border-color:var(--pr); color:var(--on-pr); box-shadow:0 4px 12px color-mix(in srgb,var(--pr) 22%,transparent); }
+    .btn.pri:hover { background:var(--pr-h); }
+    .btn:disabled { opacity:.55; cursor:default; transform:none; }
+    #status { color:var(--mu); font-size:13px; }
+    #status.ok { color:var(--ok); font-weight:750; }
+    ul.g { margin:0; padding:0 22px 0 0; color:var(--mu); }
+    ul.g li { margin-bottom:10px; padding-right:2px; }
+    ul.g b { color:var(--tx); }
+    kbd { font:11.5px Consolas,monospace; background:var(--s2); border:1px solid var(--ln); border-bottom-width:2px; border-radius:6px; padding:1px 7px; }
+    @media(max-width:620px) { .wrap{padding:22px 14px 130px} header{margin-bottom:20px}.logo{width:50px;height:50px;border-radius:16px}h1{font-size:20px}.card{padding:20px 18px;border-radius:17px}nav button{padding:10px 12px;font-size:12.5px}.bar{padding:12px}.bar div{gap:8px}.btn{padding:0 14px;font-size:13px}#status{width:100%;padding-inline:2px} }
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo" aria-hidden="true">DY</div>
+      <div><h1>DY CRM Toolkit</h1><div class="ver" id="ver"></div></div>
+    </header>
+
+    <nav role="tablist">
+      <button role="tab" id="tab-kyc" aria-selected="true" aria-controls="p-kyc">احراز هویت (KYC)</button>
+      <button role="tab" id="tab-close" aria-selected="false" aria-controls="p-close">بستن فرصت</button>
+      <button role="tab" id="tab-inv" aria-selected="false" aria-controls="p-inv">چاپ فاکتور</button>
+      <button role="tab" id="tab-quick" aria-selected="false" aria-controls="p-quick">جلسهٔ سریع</button>
+      <button role="tab" id="tab-foot" aria-selected="false" aria-controls="p-foot">پاورقی چاپ</button>
+    </nav>
+
+    <section id="p-kyc" role="tabpanel" aria-labelledby="tab-kyc">
+      <div class="card">
+        <h2>رفتار فرم</h2>
+        <p>پس از تایید موبایل چه اتفاقی بیفتد.</p>
+        <label class="sw"><input type="checkbox" id="autoSave"><i></i>
+          <span><b>ذخیره و بستن خودکار</b><small>بعد از پر شدن فرم Quick Create، دکمهٔ «ذخیره و بستن» زده شود.</small></span></label>
+      </div>
+
+      <div class="card">
+        <h2>زحل</h2><p>سرویس استعلام کد ملی و شناسه ملی.</p>
+        <label class="f"><span>توکن زحل</span>
+          <div class="in"><input id="token" type="password" autocomplete="off" placeholder="Bearer token"><button type="button" class="eye" data-for="token" aria-label="نمایش/پنهان">👁</button></div>
+        </label>
+      </div>
+
+      <div class="card">
+        <h2>پیامک تایید (IPPanel)</h2><p>ارسال با الگو (Pattern) از <span dir="ltr">edge.ippanel.com</span>.</p>
+        <label class="f"><span>کلید API / توکن <small>(Authorization)</small></span>
+          <div class="in"><input id="ippanelApiKey" type="password" autocomplete="off"><button type="button" class="eye" data-for="ippanelApiKey" aria-label="نمایش/پنهان">👁</button></div>
+        </label>
+        <p>شماره فرستنده (<span dir="ltr">+983000505</span>) و الگوهای OTP و خوش‌آمدگویی ثابت هستند؛ فقط کلید API لازم است.</p>
+      </div>
+
+      <div class="card">
+        <h2>پیامک خوش‌آمدگویی</h2><p>پس از ایجاد موفق مخاطب، الگوی خوش‌آمدگویی به‌صورت خودکار با نام و نام خانوادگی ارسال می‌شود.</p>
+      </div>
+
+      <div class="card">
+        <h2>فیلدهای داینامیکس</h2><p>نام منطقی فیلدها (Schema name) در CRM شما.</p>
+        <label class="f"><span>فیلد کد ملی در مخاطب <small>(ثابت و تأییدشده)</small></span><input id="contactNationalField" type="text"></label>
+        <label class="f"><span>فیلد شناسه ملی در شرکت <small>(account)</small></span><input id="accountNationalField" type="text"></label>
+        <label class="f"><span>فیلد Title در مخاطب <small>(option set)</small></span><input id="titleField" type="text"></label>
+        <label class="f"><span>مقدار گزینه برای آقا <small>(جناب آقای = 728940000)</small></span><input id="titleMale" type="text"></label>
+        <label class="f"><span>مقدار گزینه برای خانم <small>(سرکار خانم = 728940001)</small></span><input id="titleFemale" type="text"></label>
+      </div>
+    </section>
+
+    <section id="p-close" role="tabpanel" aria-labelledby="tab-close" hidden>
+      <div class="card">
+        <h2>راهنمای سریع</h2><p>این بخش تنظیماتی ندارد؛ دکمه‌ها خودکار روی صفحه‌های فرصت ظاهر می‌شوند.</p>
+        <ul class="g">
+          <li><b>بستن به عنوان برنده:</b> روی فرم فرصت باز؛ مراحل را کامل می‌کند، درآمد واقعی را ثبت می‌کند و فرصت را می‌بندد.</li>
+          <li><b>افزودن محصول:</b> جستجوی فوری با <kbd>↑</kbd> <kbd>↓</kbd> و <kbd>Enter</kbd>؛ فرم ایجاد سریع با قیمت پر شده باز می‌شود.</li>
+          <li><b>فرصت جدید:</b> روی لیست فرصت‌ها؛ بدون زدن Save ساخته می‌شود.</li>
+          <li><b>پنل جلسه:</b> زبانهٔ «جلسه» لبهٔ راست صفحه؛ چند جلسهٔ هم‌زمان با کارت جداگانه. پایان جلسه محصول INT-009 را به تعداد دقیقه اضافه می‌کند (به‌جز فرصت‌های فقط-پرینت).</li>
+          <li>با دکمهٔ کوچک پایین نوار دکمه‌ها می‌توانید آن‌ها را به آیکن جمع کنید.</li>
+          <li>مقدار پیش‌فرض فیلدهای مراحل در بخش «تنظیمات پیشرفته» پنجرهٔ بستن فرصت ذخیره می‌شود.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="p-inv" role="tabpanel" aria-labelledby="tab-inv" hidden>
+      <div class="card">
+        <h2>رفتار چاپ</h2><p>روی فرم فرصت، پیش‌نمایش چاپ به‌جای صفحهٔ CRM، فاکتور را نشان می‌دهد.</p>
+        <label class="sw"><input type="checkbox" id="inv-ctrlp"><i></i>
+          <span><b>چاپ فاکتور با Ctrl+P و منوی چاپ</b><small>خاموش: فقط دکمهٔ «چاپ فاکتور» فاکتور را چاپ می‌کند.</small></span></label>
+        <br>
+        <label class="sw"><input type="checkbox" id="inv-buyer"><i></i>
+          <span><b>نمایش مشخصات خریدار</b><small>از مشتری فرصت (شرکت یا شخص) خوانده می‌شود.</small></span></label>
+      </div>
+      <div class="card">
+        <h2>عنوان و شماره</h2><p>شمارهٔ فاکتور از یک فیلد فرصت خوانده می‌شود.</p>
+        <label class="f"><span>عنوان فاکتور</span><input id="inv-title" class="rtl" type="text"></label>
+        <label class="f"><span>فیلد شمارهٔ فاکتور <small>(نام منطقی)</small></span><input id="inv-numfield" type="text"></label>
+      </div>
+      <div class="card">
+        <h2>مشخصات فروشنده</h2><p>فیلد خالی در فاکتور چاپ نمی‌شود.</p>
+        <label class="f"><span>نام</span><input id="inv-sname" class="rtl" type="text"></label>
+        <label class="f"><span>شمارهٔ صنفی</span><input id="inv-sguild" class="rtl" type="text"></label>
+        <label class="f"><span>شمارهٔ اقتصادی</span><input id="inv-seco" class="rtl" type="text"></label>
+        <label class="f"><span>شمارهٔ ثبت / ملی <small>(خالی = شمارهٔ صنفی)</small></span><input id="inv-sreg" class="rtl" type="text"></label>
+        <label class="f"><span>استان</span><input id="inv-sprov" class="rtl" type="text"></label>
+        <label class="f"><span>شهرستان <small>(خالی = شهر)</small></span><input id="inv-scounty" class="rtl" type="text"></label>
+        <label class="f"><span>شهر</span><input id="inv-scity" class="rtl" type="text"></label>
+        <label class="f"><span>کد پستی</span><input id="inv-spostal" class="rtl" type="text"></label>
+        <label class="f"><span>تلفن</span><input id="inv-sphone" class="rtl" type="text"></label>
+        <label class="f"><span>نشانی</span><input id="inv-saddr" class="rtl" type="text"></label>
+      </div>
+    </section>
+
+    <section id="p-quick" role="tabpanel" aria-labelledby="tab-quick" hidden>
+      <div class="card">
+        <h2>جلسهٔ سریع (در همهٔ تب‌ها)</h2>
+        <p>دو بار پشت‌سرهم زدن یک کلید در هر سایتی، پنجرهٔ شروع یا پایان جلسه را باز می‌کند؛ نیازی به باز بودن تب CRM نیست (فقط یک بار باید در CRM وارد شده باشید). با <kbd>Esc</kbd> بسته می‌شود.</p>
+        <label class="sw"><input type="checkbox" id="q-enabled"><i></i> میان‌بُرهای صفحه‌کلید فعال باشد</label>
+        <div>
+          <label class="f"><span>کلید شروع جلسه (دو بار)</span>
+            <select id="q-start"><option value="Shift">Shift</option><option value="Control">Ctrl</option><option value="Alt">Alt</option><option value="off">غیرفعال</option></select></label>
+          <label class="f"><span>کلید پایان جلسه (دو بار)</span>
+            <select id="q-end"><option value="Shift">Shift</option><option value="Control">Ctrl</option><option value="Alt">Alt</option><option value="off">غیرفعال</option></select></label>
+        </div>
+        <label class="f"><span>حداکثر فاصلهٔ دو ضربه (میلی‌ثانیه، ۲۰۰ تا ۸۰۰)</span>
+          <input type="text" id="q-tap" inputmode="numeric" dir="ltr"></label>
+        <label class="f"><span>نام لیست قیمت پیش‌فرض</span>
+          <input type="text" id="q-pl" placeholder="قیمت اصلی"></label>
+        <label class="f"><span>آدرس CRM (اختیاری؛ خالی = تشخیص خودکار از تب CRM)</span>
+          <input type="text" id="q-url" dir="ltr" placeholder="https://novincn.crm.systan.com"></label>
+        <label class="sw"><input type="checkbox" id="q-open"><i></i> بعد از شروع، فرصت در تب جدید باز شود</label>
+      </div>
+    </section>
+
+    <section id="p-foot" role="tabpanel" aria-labelledby="tab-foot" hidden>
+      <div class="card">
+        <h2>پاورقی صفحه‌های چاپی</h2><p>در پایین هر صفحهٔ چاپی (پیش‌نمایش چاپ، PDF و فاکتور) نوشته می‌شود. در پنجرهٔ چاپ، حاشیه‌ها را روی «پیش‌فرض» نگه دارید.</p>
+        <label class="sw"><input type="checkbox" id="ft-enabled"><i></i>
+          <span><b>فعال بودن پاورقی</b><small>خاموش: هیچ پاورقی اضافه نمی‌شود.</small></span></label>
+      </div>
+      <div class="card">
+        <h2>موارد پاورقی</h2><p>هر مورد در جای ثابت خود چاپ می‌شود: شمارهٔ صفحه راست، عنوان و نشانی وسط، تاریخ چپ.</p>
+        <label class="sw"><input type="checkbox" id="ft-page"><i></i>
+          <span><b>شمارهٔ صفحه</b><small>مثلاً «صفحه ۱ از ۳» با ارقام فارسی.</small></span></label><br>
+        <label class="sw"><input type="checkbox" id="ft-date"><i></i>
+          <span><b>تاریخ و ساعت چاپ</b><small>شمسی، به وقت تهران.</small></span></label><br>
+        <label class="sw"><input type="checkbox" id="ft-title"><i></i>
+          <span><b>عنوان صفحه</b><small>عنوان تب مرورگر در لحظهٔ چاپ.</small></span></label><br>
+        <label class="sw"><input type="checkbox" id="ft-url"><i></i>
+          <span><b>نشانی صفحه</b><small>خط دوم وسط پاورقی.</small></span></label><br>
+        <label class="sw"><input type="checkbox" id="ft-trim"><i></i>
+          <span><b>کوتاه‌کردن نشانی</b><small>فقط پارامترهای شناسایی رکورد (etn, id, pagetype, appid) می‌ماند.</small></span></label>
+      </div>
+      <div class="card">
+        <h2>اندازهٔ نوشته</h2><p>بین ۶ تا ۱۴ پوینت.</p>
+        <label class="f"><span>اندازهٔ فونت (pt)</span><input id="ft-size" type="text" inputmode="numeric"></label>
+      </div>
+    </section>
+  </div>
+
+  <div class="bar"><div><button class="btn pri" id="save">ذخیره تنظیمات</button><button class="btn" id="reset" type="button">بازگشت به پیش‌فرض فیلدها</button><span id="status" role="status" aria-live="polite"></span></div></div>
+
+  
+  <script src="options/options.js"></script>
+</body>
+</html>

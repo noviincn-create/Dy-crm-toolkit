@@ -1,0 +1,140 @@
+{
+  "manifest_version": 3,
+  "name": "DY CRM Toolkit",
+  "version": "1.17.4",
+  "description": "Dynamics 365 on-prem 9.1 Chrome extension with Persian Customer Workspace, Admin Panel, KYC, invoices, opportunity tools and customer portal.",
+  "permissions": [
+    "storage",
+    "alarms"
+  ],
+  "host_permissions": [
+    "https://service.zohal.io/*",
+    "https://edge.ippanel.com/*",
+    "https://*.crm.systan.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "options_page": "options.html",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.crm.systan.com/*"
+      ],
+      "js": [
+        "content/close.js"
+      ],
+      "run_at": "document_idle",
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "https://*.crm.systan.com/*"
+      ],
+      "js": [
+        "content/customer-workspace.js"
+      ],
+      "run_at": "document_idle",
+      "world": "MAIN",
+      "all_frames": true
+    },
+    {
+      "matches": [
+        "https://*.crm.systan.com/*"
+      ],
+      "js": [
+        "content/kyc-bridge.js"
+      ],
+      "run_at": "document_start",
+      "world": "ISOLATED"
+    },
+    {
+      "matches": [
+        "https://*.crm.systan.com/main.aspx*"
+      ],
+      "js": [
+        "content/kyc.js"
+      ],
+      "run_at": "document_idle",
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "https://*.crm.systan.com/*"
+      ],
+      "js": [
+        "content/invoice-bridge.js"
+      ],
+      "run_at": "document_start",
+      "world": "ISOLATED"
+    },
+    {
+      "matches": [
+        "https://*.crm.systan.com/*"
+      ],
+      "js": [
+        "content/sm-bridge.js"
+      ],
+      "run_at": "document_start",
+      "world": "ISOLATED"
+    },
+    {
+      "matches": [
+        "https://*.crm.systan.com/*"
+      ],
+      "js": [
+        "content/stamp-data.js",
+        "content/footer.js"
+      ],
+      "run_at": "document_idle",
+      "world": "ISOLATED"
+    },
+    {
+      "matches": [
+        "https://*.crm.systan.com/*"
+      ],
+      "js": [
+        "content/invoice.js"
+      ],
+      "all_frames": true,
+      "run_at": "document_idle",
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "https://*.crm.systan.com/*"
+      ],
+      "css": [
+        "invoice/font.css"
+      ],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "content/quick.js"
+      ],
+      "all_frames": true,
+      "run_at": "document_idle",
+      "world": "ISOLATED"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "invoice/Vazirmatn.woff2",
+        "invoice/Yekan.woff2",
+        "invoice/BTitr.woff2"
+      ],
+      "matches": [
+        "https://*.crm.systan.com/*"
+      ]
+    }
+  ],
+  "action": {
+    "default_title": "پورتال مشتریان"
+  }
+}

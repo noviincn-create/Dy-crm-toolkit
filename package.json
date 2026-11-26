@@ -1,0 +1,37 @@
+{
+  "name": "dy-crm-toolkit",
+  "version": "1.14.0",
+  "private": true,
+  "description": "Dynamics 365 on-prem 9.1 Chrome (MV3) extension: Persian invoice print, monthly opportunity number, Zohal KYC, close-as-won, product tools, session panel.",
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tests/tsconfig.json",
+    "build": "node esbuild.config.mjs",
+    "watch": "node esbuild.config.mjs --watch",
+    "test": "npm run build && npm run test:opp && npm run test:bpf && npm run test:session && npm run test:invoice-dom && npm run test:kyc && npm run test:footer && npm run test:sm && npm run test:sm-ui && npm run test:quick && npm run test:quick-bg && npm run test:report",
+    "test:opp": "tsx tests/opp-number.test.ts dist/content/close.js",
+    "test:bpf": "tsx tests/bpf-stage.test.ts dist/content/close.js",
+    "test:session": "tsx tests/session.test.ts dist/content/close.js",
+    "test:invoice": "tsx tests/invoice.test.ts dist/content/invoice.js",
+    "zip": "npm run build && cd dist && zip -qr ../dy-crm-toolkit-dist.zip .",
+    "test:invoice-dom": "tsx tests/invoice-render.test.ts dist/content/invoice.js",
+    "build:tools": "esbuild tools/migrate-opportunity-number.ts --bundle --format=iife --target=chrome120 --charset=utf8 --outfile=dist-tools/migrate-opportunity-number.js",
+    "test:kyc": "tsx tests/kyc.test.ts dist/content/kyc.js",
+    "test:footer": "tsx tests/footer.test.ts dist/content/footer.js",
+    "test:sm": "tsx tests/session-manager.test.ts",
+    "test:sm-ui": "tsx tests/session-manager-ui.test.ts dist/content/close.js dist/content/sm-bridge.js",
+    "test:quick": "tsx tests/quick.test.ts dist/content/quick.js",
+    "test:quick-bg": "tsx tests/quick-bg.test.ts",
+    "test:report": "tsx tests/report.test.ts dist/content/report.js dist/content/report-bridge.js"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.280",
+    "@types/jsdom": "^21.1.7",
+    "@types/node": "^22.0.0",
+    "esbuild": "^0.24.0",
+    "jsdom": "^25.0.0",
+    "playwright": "^1.48.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}

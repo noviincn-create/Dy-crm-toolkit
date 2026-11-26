@@ -1,0 +1,23 @@
+/* Injected by the extension itself (not by the page), so the page's CSP cannot block it. */
+@font-face {
+  font-family: "DY Vazir";
+  src: url("chrome-extension://__MSG_@@extension_id__/invoice/Vazirmatn.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+/* Invoice fonts: Yekan (body) and B Titr (headings). Both carry Persian digits (U+06F0-06F9). */
+@font-face {
+  font-family: "DY Yekan";
+  src: url("chrome-extension://__MSG_@@extension_id__/invoice/Yekan.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: "DY Titr";
+  src: url("chrome-extension://__MSG_@@extension_id__/invoice/BTitr.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: block;
+}

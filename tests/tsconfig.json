@@ -1,0 +1,5 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": { "types": ["node", "chrome"], "noImplicitAny": false, "noUnusedLocals": false, "module": "ESNext" },
+  "include": ["./**/*.ts", "../tools/**/*.ts", "../src/types/**/*.d.ts"]
+}

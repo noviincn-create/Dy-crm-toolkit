@@ -64,7 +64,7 @@ export async function loadData(ui: LoadUi): Promise<void> {
   } catch (e) {
     console.error("DY report:", e);
     // an unreachable CRM / sign-in redirect shows up as a network TypeError
-    ui.showError(e instanceof Error && e.name === "TypeError" && env.crmUrl
+    ui.showError((e as { name?: string } | null)?.name === "TypeError" && env.crmUrl
       ? `ارتباط با CRM برقرار نشد. ابتدا در همین Chrome وارد CRM شوید (${env.crmUrl}) و دوباره بروزرسانی کنید.`
       : errorMessage(e));
     ui.setStatus("خطا در دریافت اطلاعات");

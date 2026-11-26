@@ -60,7 +60,7 @@ npm run build
 1. در Chrome به `chrome://extensions` بروید و **Developer mode** را روشن کنید.
 2. **Load unpacked** را بزنید و پوشه‌ی `dist/` را انتخاب کنید.
 3. صفحه‌ی تنظیمات افزونه را باز کنید و توکن زحل و کلید IPPanel را وارد کنید.
-4. (اختیاری) برای `novinvn://report` فایل `tools/protocol/install-novinvn.bat` را اجرا کنید.
+4. (اختیاری) برای `novinvn://report` فایل `tools/protocol/install-novinvn.bat` را اجرا و بعد Chrome را کامل ببندید و دوباره باز کنید. اگر در نوار آدرس جستجوی Google باز شد، [عیب‌یابی](docs/NOVINVN.md#عیب‌یابی-در-نوار-آدرس-chrome-جستجوی-google-باز-می‌شود) را ببینید.
 
 > [!NOTE]
 > شناسه‌ی افزونه‌ی unpacked به مسیر پوشه بستگی دارد؛ با تغییر پوشه، تنظیمات و توکن‌ها باید دوباره وارد شوند.
